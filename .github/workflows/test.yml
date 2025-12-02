@@ -72,11 +72,9 @@ jobs:
             echo "✅ Coverage ${COVERAGE}% meets threshold ${THRESHOLD}%"
           fi
 
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v5
+      - name: Upload coverage to GitHub
         if: always()
+        uses: actions/upload-artifact@v4
         with:
-          working-directory: ${{ inputs.working_directory }}
-          files: ./coverage/lcov.info
-          flags: unittests
-          fail_ci_if_error: false
+          name: coverage-report
+          path: ${{ inputs.working_directory }}/coverage/
